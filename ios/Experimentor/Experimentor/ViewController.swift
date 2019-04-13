@@ -13,17 +13,25 @@ class HealthKitManager: NSObject {
     static let healthKitStore = HKHealthStore()
     
     static func authorizeHealthKit() {
-        guard let quantityType = HKObjectType.quantityType(forIdentifier: .heartRate) else { fatalError() }
+        guard HKHealthStore.isHealthDataAvailable() else {
+            fatalError("Health data not available")
+        }
+
+        guard
+            let quantityType = HKSampleType.quantityType(forIdentifier: .heartRate),
+            let energyBurned = HKSampleType.quantityType(forIdentifier: .activeEnergyBurned)
+        else { fatalError("can't create quantity type") }
+
         
-        let healthKitTypes: Set<HKSampleType> = [ quantityType ]
+        let healthKitTypes: Set<HKSampleType> = [ quantityType, energyBurned ]
         
-        healthKitStore.requestAuthorization(toShare: healthKitTypes, read: healthKitTypes) { (granted, error) in
-            
+        healthKitStore.requestAuthorization(toShare: [], read: healthKitTypes) { (granted, error) in
+            print("Granted? \n\(granted ? "hell yeah" : "nope")")
         }
     }
     
     func startMonitoring() {
-        guard let sampleType = HKObjectType.quantityType(forIdentifier: .heartRate) else { fatalError() }
+        guard let sampleType = HKSampleType.quantityType(forIdentifier: .heartRate) else { fatalError() }
         
         let query = HKObserverQuery(sampleType: sampleType, predicate: nil) { (query, completion, error) in
             if let error = error {

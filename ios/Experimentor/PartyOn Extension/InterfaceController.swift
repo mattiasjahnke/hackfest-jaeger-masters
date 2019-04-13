@@ -55,7 +55,7 @@ class InterfaceController: WKInterfaceController, HKWorkoutSessionDelegate {
 
     func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {
         print("workoutSessionDidFailWithError \(error)")
-        textLabel.setText("Error")
+        textLabel.setText(error.localizedDescription)
     }
 
 }

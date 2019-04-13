@@ -25,6 +25,9 @@ const fetchHeartbeatBpm = () => {
     .then(res => res.json())
     .then(json => {
         const hb = parseInt(json.beat);
+        if (hb === heartbeat_bpm) {
+            return;
+        }
         console.log("Fetched new heartbeat: " + hb);
         heartbeat_bpm = hb;
         setupPulseTimer();

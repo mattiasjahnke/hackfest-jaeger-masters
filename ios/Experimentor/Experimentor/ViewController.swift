@@ -57,7 +57,12 @@ class HealthKitManager: NSObject {
                 }
 
                 DispatchQueue.main.async {
-                    let heartRate = sample.quantity
+                    //let heartRate = sample.quantity
+                    let unit = HKUnit.count().unitDivided(by: HKUnit.minute())
+                    let heartRate = sample.quantity.doubleValue(for: unit)
+                    
+                    self.callBackend(bpm: Int(heartRate))
+                    
                     print("Heart Rate Sample: \(heartRate)")
 
                     // do something with it
@@ -66,6 +71,25 @@ class HealthKitManager: NSObject {
         }
 
         healthKitStore.execute(hearthRateObserverQuery)
+    }
+    
+    var lastSent = Date()
+    var latestValue = 0
+    
+    func reportBpm(_ bpm: Int) {
+        latestValue = bpm
+        if Date().timeIntervalSince(lastSent) > 10 {
+            print("sending!")
+            lastSent = Date()
+            callBackend(bpm: bpm)
+        }
+    }
+    
+    func callBackend(bpm: Int) {
+        let url = URL(string: "https://hackfest-jaeger.herokuapp.com/?beat=\(bpm)")!
+        URLSession.shared.dataTask(with: url) { (_, _, _) in
+            print("OK sent!")
+        }.resume()
     }
 
     func fetchLatestHeartRateSample(completionHandler: @escaping (_ sample: HKQuantitySample?) -> Void) {

@@ -7,11 +7,38 @@
 //
 
 import WatchKit
+import HealthKit
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, HKWorkoutSessionDelegate {
+    func workoutSession(_ workoutSession: HKWorkoutSession, didChangeTo toState: HKWorkoutSessionState, from fromState: HKWorkoutSessionState, date: Date) {
+        print("workoutSessionDidChangeTo \(toState)")
+    }
+
+    func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {
+        print("workoutSessionDidFailWithError \(error)")
+    }
+
+
+    let healthStore = HKHealthStore()
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = .running
+        configuration.locationType = .indoor
+
+        do {
+            let session = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
+
+            session.delegate = self
+            session.prepare()
+            session.startActivity(with: Date())
+        }
+        catch let error as NSError {
+            // Perform proper error handling here...
+            fatalError("*** Unable to create the workout session: \(error.localizedDescription) ***")
+        }
     }
 
     func applicationDidBecomeActive() {

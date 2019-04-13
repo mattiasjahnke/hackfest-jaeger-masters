@@ -21,6 +21,7 @@
 		72845D492261D838006B2987 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72845D482261D838006B2987 /* NotificationController.swift */; };
 		72845D4B2261D839006B2987 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72845D4A2261D839006B2987 /* Assets.xcassets */; };
 		72845D502261D839006B2987 /* PartyOn.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 72845D332261D836006B2987 /* PartyOn.app */; };
+		72845D5B2261EBEC006B2987 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72845D5A2261EBEC006B2987 /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,8 @@
 		72845D4A2261D839006B2987 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72845D4C2261D839006B2987 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72845D4D2261D839006B2987 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		72845D592261EBEC006B2987 /* PartyOn Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PartyOn Extension.entitlements"; sourceTree = "<group>"; };
+		72845D5A2261EBEC006B2987 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.2.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72845D5B2261EBEC006B2987 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +149,7 @@
 		0E359045225F60B7008395D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72845D5A2261EBEC006B2987 /* HealthKit.framework */,
 				0E359046225F60B7008395D8 /* HealthKit.framework */,
 			);
 			name = Frameworks;
@@ -163,6 +168,7 @@
 		72845D432261D838006B2987 /* PartyOn Extension */ = {
 			isa = PBXGroup;
 			children = (
+				72845D592261EBEC006B2987 /* PartyOn Extension.entitlements */,
 				72845D442261D838006B2987 /* InterfaceController.swift */,
 				72845D462261D838006B2987 /* ExtensionDelegate.swift */,
 				72845D482261D838006B2987 /* NotificationController.swift */,
@@ -254,6 +260,9 @@
 						CreatedOnToolsVersion = 10.2;
 						SystemCapabilities = {
 							com.apple.BackgroundModes.watchos.extension = {
+								enabled = 1;
+							};
+							com.apple.HealthKit.watchos = {
 								enabled = 1;
 							};
 						};
@@ -569,7 +578,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "PartyOn Extension/PartyOn Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XP54RBR6MH;
 				INFOPLIST_FILE = "PartyOn Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -590,7 +601,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "PartyOn Extension/PartyOn Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XP54RBR6MH;
 				INFOPLIST_FILE = "PartyOn Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

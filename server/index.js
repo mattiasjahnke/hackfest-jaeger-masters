@@ -15,8 +15,10 @@ app.get("/", function(req, res) {
     if (beat != undefined) {
         mc.set('beat', beat, {expires:0}, function(err, val) {
             if(err != null) {
-              console.log('Error setting value: ' + err)
+              console.log('Error setting value: ' + err);
+              res.send(500);
             }
+            res.send(200);
           });
 
     } else {
@@ -24,6 +26,7 @@ app.get("/", function(req, res) {
           mc.get('beat', function(err, val) {
             if(err != null) {
               console.log('Error getting value: ' + err)
+              res.send(0);
             } else {
                 res.send(val);
             }

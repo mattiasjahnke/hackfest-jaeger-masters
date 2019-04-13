@@ -85,6 +85,7 @@ class HealthKitManager: NSObject {
                                         return
                                     }
 
+                                    print("Got \(results?.count) results")
                                     completionHandler(results?.first as? HKQuantitySample)
         }
 

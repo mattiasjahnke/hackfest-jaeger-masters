@@ -16,9 +16,9 @@ app.get("/", function(req, res) {
         mc.set('beat', beat, {expires:0}, function(err, val) {
             if(err != null) {
               console.log('Error setting value: ' + err);
-              res.send(500);
+              res.sendStatus(500);
             }
-            res.send(200);
+            res.sendStatus(200);
           });
 
     } else {
@@ -28,7 +28,7 @@ app.get("/", function(req, res) {
               console.log('Error getting value: ' + err)
               res.json({'beat': 0})
             } else {
-                res.json({'beat': parseInt(val.toString('utf8'))});
+                res.json({'beat': val.toString('utf8')});
             }
           });
     }

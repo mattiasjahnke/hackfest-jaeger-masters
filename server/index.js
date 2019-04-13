@@ -11,8 +11,8 @@ var mc = memjs.Client.create(process.env.MEMCACHIER_SERVERS, {
 
 
 app.get("/", function(req, res) {
-    const beat = req.query.beat;
-    if (beat != undefined) {
+    const beat = parseInt(req.query.beat);
+    if (beat !== null && beat !== undefined) {
         mc.set('beat', beat, {expires:0}, function(err, val) {
             if(err != null) {
               console.log('Error setting value: ' + err);

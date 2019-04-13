@@ -252,6 +252,11 @@
 					};
 					72845D3E2261D838006B2987 = {
 						CreatedOnToolsVersion = 10.2;
+						SystemCapabilities = {
+							com.apple.BackgroundModes.watchos.extension = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

@@ -26,9 +26,9 @@ app.get("/", function(req, res) {
           mc.get('beat', function(err, val) {
             if(err != null) {
               console.log('Error getting value: ' + err)
-              res.send(0);
+              res.json({'beat': 0})
             } else {
-                res.send(val);
+                res.json({'beat': val});
             }
           });
     }
